@@ -1,0 +1,40 @@
+.top-header {
+  height: 60px;
+  border-bottom: 2px solid firebrick;
+  margin-bottom: 10px;
+}
+.app-title {
+  margin: auto;
+  span {
+    font-weight: bold;
+    color: purple;
+    height: 60px;
+    font-size: 20px;
+  }
+  a.text-link {
+    color: purple;
+    text-decoration: none;
+    &:active,
+    &:link {
+      color: purple;
+    }
+  }
+}
+.right-action {
+  text-align: right;
+  button {
+    margin: 12px 10px 5px;
+  }
+}
+.salutation {
+  font-size: 12px;
+  font-weight: bold;
+}
+a.mat-flat-button {
+  margin-right: 8px;
+  margin-left: 8px;
+  padding: 0px;
+}
+.app-search {
+  margin-top: 10px;
+}

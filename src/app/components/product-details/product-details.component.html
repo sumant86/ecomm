@@ -1,0 +1,15 @@
+<ecomm-breadcrumb [breadcrumbs]="breadcrumbs"></ecomm-breadcrumb>
+<div fxLayout="row">
+  <div fxFlex="300px">
+    <img [src]="product.image" height="300px" width="300px" />
+  </div>
+  <div fxLayout="column" class="product-content">
+    <span class="title"> {{ product.name }}</span>
+    <p class="description">{{ product.description }}</p>
+  </div>
+  <div fxFlex="200px" fxLayout="column" class="product-actoin">
+    <span class="price">Price: ₹ {{ product.price }}</span>
+    <button mat-raised-button color="primary">Add To Cart</button>
+    <button mat-raised-button color="primary">Buy Now</button>
+  </div>
+</div>

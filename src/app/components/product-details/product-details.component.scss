@@ -1,0 +1,21 @@
+.title {
+  font-weight: bold;
+  font-size: larger;
+}
+.price {
+  font-weight: bold;
+  font-size: larger;
+}
+.product-content {
+  flex-direction: row;
+  min-width: 400px;
+}
+.product-actoin {
+  button {
+    margin: 8px 10px;
+  }
+  .price {
+    margin: 8px 10px;
+    text-align: center;
+  }
+}

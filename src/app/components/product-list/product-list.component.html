@@ -1,0 +1,67 @@
+<!-- <div fxLayout="row" class="search">
+  <form
+    fxLayout="column"
+    fxFlex="100%"
+    #productSearchForm="ngForm"
+    (ngSubmit)="productSearch(productSearchForm)"
+  >
+    <mat-form-field>
+      <input
+        type="search"
+        matInput
+        placeholder="Search"
+        ngModel
+        name="searchFor"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+</div> -->
+<div fxLayout="row" class="products-cards">
+  <ng-container *ngFor="let product of filteredProductList">
+    <div fxFlex="25">
+      <mat-card class="product-card">
+        <mat-card-content>
+          <img
+            mat-card-image
+            [src]="product.image"
+            alt="product.name"
+            height="200px"
+            width="200px"
+          />
+          <p>
+            <span class="title">{{ product.name }}</span>
+          </p>
+          <span>Price: ₹{{ product.price }}</span>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            mat-icon-button
+            mat-tooltip="Add to wishList"
+            aria-label="Add to wishlist"
+          >
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            class="details"
+            [routerLink]="['/home/details', product.id]"
+          >
+            Details
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            class="details"
+            (click)="addToCart(product)"
+          >
+            Add To Cart
+          </button>
+          <!-- <button mat-raised-button color="primary" class="details">
+            Buy Now
+          </button> -->
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

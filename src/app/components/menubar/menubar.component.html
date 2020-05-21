@@ -1,0 +1,28 @@
+<div class="menu-buttons">
+  <button mat-button [matMenuTriggerFor]="samples">Samples</button>
+  <button mat-button [matMenuTriggerFor]="test">test</button>
+</div>
+<mat-menu #samples="matMenu">
+  <a mat-menu-item (click)="openLoader()">Loader</a>
+  <button mat-menu-item [matMenuTriggerFor]="dialogbox">dialog Box</button>
+  <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>
+  <button mat-menu-item>Birds</button>
+  <button mat-menu-item>Mammals</button>
+</mat-menu>
+
+<mat-menu #test="matMenu">
+  <button mat-menu-item>test1</button>
+  <button mat-menu-item>test2</button>
+  <button mat-menu-item>test3</button>
+  <button mat-menu-item>Test4</button>
+</mat-menu>
+
+<mat-menu #dialogbox="matMenu">
+  <button mat-menu-item (click)="confirmDialog()">Confirmation</button>
+  <button mat-menu-item (click)="htmlDialog()">HTML Template</button>
+  <button mat-menu-item (click)="alertDialog()">Alert</button>
+</mat-menu>
+
+<mat-menu #reptiles="matMenu">
+  <button mat-menu-item>Banded Day Gecko</button>
+</mat-menu>

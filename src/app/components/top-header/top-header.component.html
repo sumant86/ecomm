@@ -1,0 +1,84 @@
+<div fxFlex fxLayout="row" class="top-header">
+  <div fxFlex="60px">
+    <a [routerLink]="['/']"
+      ><img src="/assets/img/angular.png" height="60px" width="60px"
+    /></a>
+  </div>
+  <div fxFlex="100px" class="app-title">
+    <span>
+      <a class="text-link" [routerLink]="['/']">ngCart</a>
+    </span>
+  </div>
+  <div fxFlex>
+    <div class="input-group app-search">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="basic-addon2"
+      />
+      <div class="input-group-append">
+        <span class="input-group-text" id="basic-addon2">
+          <mat-icon>search</mat-icon>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="300px" class="right-action">
+    <button
+      mat-raised-button
+      color="warn"
+      class="login"
+      (click)="onSignInClick()"
+      *ngIf="!isSignIn"
+    >
+      <i class="fa fa-google-plus-official" aria-hidden="true"></i> Sign In with
+      Google
+    </button>
+    <ng-container *ngIf="isSignIn"
+      ><span class="salutation"
+        >Hello {{ user.givenname }}
+        <a mat-flat-button [matMenuTriggerFor]="account">
+          <img [src]="user.img" height="30px" width="30px" />
+          <mat-icon>expand_more</mat-icon>
+        </a>
+        <mat-menu #account="matMenu">
+          <button mat-menu-item [routerLink]="['/account']">Account</button>
+          <button mat-menu-item [routerLink]="['/orders/list']">Orders</button>
+          <button mat-menu-item [routerLink]="['/wishList']">Wishlist</button>
+          <button mat-menu-item (click)="onSignOutClick()">SignOut</button>
+        </mat-menu>
+      </span>
+    </ng-container>
+
+    <button
+      *ngIf="cartSize === 0"
+      mat-raised-button
+      color="primary"
+      class="cart"
+      [routerLink]="['/cart']"
+    >
+      <mat-icon>shopping_cart</mat-icon> Cart
+    </button>
+    <button
+      *ngIf="cartSize > 0"
+      mat-raised-button
+      color="primary"
+      class="cart"
+      [routerLink]="['/cart']"
+      matBadge="{{ cartSize }}"
+      matBadgeColor="accent"
+    >
+      <mat-icon>shopping_cart</mat-icon> Cart
+    </button>
+    <!-- <button
+      mat-raised-button
+      color="primary"
+      class="cart"
+      (click)="clearCart()"
+    >
+      <mat-icon>remove_shopping_cart</mat-icon>
+    </button> -->
+  </div>
+</div>

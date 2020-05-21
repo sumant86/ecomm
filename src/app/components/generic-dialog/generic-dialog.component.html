@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <p *ngIf="data.dialogType === 'message'">{{ data.message }}</p>
+  <div [innerHTML]="data.message" *ngIf="data.dialogType === 'Htmltext'"></div>
+  <div [innerHTML]="data.message" *ngIf="data.dialogType === 'alert'"></div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span fxFlex fxLayout fxLayoutAlign="flex-end">
+    <ng-container *ngFor="let button of data.buttons">
+      <button
+        color="{{ button.color }}"
+        mat-raised-button
+        *ngIf="button.type === 'ok'"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+      >
+        {{ button.name }}
+      </button>
+      <button
+        color="{{ button.color }}"
+        mat-raised-button
+        *ngIf="button.type !== 'ok'"
+        [mat-dialog-close]="false"
+      >
+        {{ button.name }}
+      </button>
+    </ng-container>
+  </span>
+</mat-dialog-actions>

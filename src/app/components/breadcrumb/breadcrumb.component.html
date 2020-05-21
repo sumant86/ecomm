@@ -1,0 +1,15 @@
+<mat-list class="list-horizontal" fxFlex fxLayout="row" role="listitem">
+  <mat-list-item
+    class="breadcrumb-item"
+    *ngFor="let breadcrumb of breadcrumbs"
+    fxLayout="row"
+    fxLayoutAlign="start"
+  >
+    <ng-container *ngIf="breadcrumb.url !== ''">
+      <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+    </ng-container>
+    <ng-container *ngIf="breadcrumb.url === ''">
+      {{ breadcrumb.label }}
+    </ng-container>
+  </mat-list-item>
+</mat-list>

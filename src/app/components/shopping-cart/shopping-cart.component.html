@@ -1,0 +1,69 @@
+<div fxLayout="row" class="products-cards">
+  <div fxFlex fxLayout="column">
+    <ng-container *ngFor="let product of filteredProductList">
+      <div fxFlex fxLayout="row" class="cart_item">
+        <div fxFlex="200px" class="cart-product">
+          <img
+            mat-card-image
+            [src]="product.image"
+            alt="product.name"
+            height="200px"
+            width="200px"
+            max-width="200px"
+          />
+        </div>
+        <div fxFlex fxLayout="column">
+          <div fxFlex fxLayout="row">
+            <div fxFlex>
+            <p>
+              <span class="title">{{ product.name }}</span>
+            </p>
+            <p>
+              <span class="subtitle">{{ product.name }}</span>
+            </p>
+          </div>
+          <div fxFlex="150px">
+            <span>Price: ₹{{ product.price }}</span>
+          </div>
+          </div>
+          <div fxFlex>
+            <p *ngIf="product.available">
+              In Stock
+            </p>
+            <p *ngIf="!product.available">
+              Out of Stock
+            </p>
+          </div>
+          <div fxFlex="50px">
+            Quantity
+            <button mat-icon-button>
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            {{ product.quantity }}
+            <button mat-icon-button>
+              <mat-icon>add_circle</mat-icon>
+            </button>
+
+            <button mat-raised-button class="cart_action">
+              Delete
+            </button>
+
+            <button mat-raised-button class="cart_action">
+              Save for Later
+            </button>
+          </div>
+        </div>
+        
+      </div>
+    </ng-container>
+  </div>
+  <div fxFlex="200px" align="center">
+    <mat-card class="proceed-to-buy">
+      <mat-card-content>
+        <p>Total Price</p>
+        <span>Price: ₹1123</span>
+      </mat-card-content>
+      <button mat-raised-button>Proceed to buy</button>
+    </mat-card>
+  </div>
+</div>
