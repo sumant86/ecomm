@@ -1,7 +1,7 @@
-<ecomm-breadcrumb [breadcrumbs]="breadcrumbs"></ecomm-breadcrumb>
-<div fxLayout="row">
-  <div fxFlex="300px">
-    <img [src]="product.image" height="300px" width="300px" />
+<!-- <ecomm-breadcrumb [breadcrumbs]="breadcrumbs"></ecomm-breadcrumb> -->
+<div fxLayout="row"  class="products-details" *ngIf="product">
+  <div fxFlex="200px" class="product-image">
+    <img [src]="product.image" height="200px" width="200px" max-width="200px" />
   </div>
   <div fxLayout="column" class="product-content">
     <span class="title"> {{ product.name }}</span>
@@ -9,7 +9,14 @@
   </div>
   <div fxFlex="200px" fxLayout="column" class="product-actoin">
     <span class="price">Price: ₹ {{ product.price }}</span>
-    <button mat-raised-button color="primary">Add To Cart</button>
+    <button
+            mat-raised-button
+            color="primary"
+            class="details"
+            (click)="addToCart(product)"
+          >
+            Add To Cart
+          </button>
     <button mat-raised-button color="primary">Buy Now</button>
   </div>
 </div>

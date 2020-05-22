@@ -21,13 +21,14 @@
   <ng-container *ngFor="let product of filteredProductList">
     <div fxFlex="25">
       <mat-card class="product-card">
-        <mat-card-content>
-          <img
+        <mat-card-content  class="product-image">
+          <img 
             mat-card-image
             [src]="product.image"
             alt="product.name"
             height="200px"
             width="200px"
+            max-width="200px"
           />
           <p>
             <span class="title">{{ product.name }}</span>

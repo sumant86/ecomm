@@ -7,6 +7,7 @@ import { Iproduct, IColumnDefinition } from "../../models/models";
 import { Store } from "@ngrx/store";
 import * as fromReducer from "./../../app.reducer";
 import * as _ from "lodash";
+import { AddToCart } from "../../actions/cart.action";
 
 @Component({
   selector: "ecomm-product-details",
@@ -25,21 +26,26 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.breadcrumbs = [
-      {
-        label: "Home",
-        url: "/",
-      },
-      {
-        label: "Details",
-        url: "",
-      },
-    ];
+    // this.breadcrumbs = [
+    //   {
+    //     label: "Home",
+    //     url: "/",
+    //   },
+    //   {
+    //     label: "Details",
+    //     url: "",
+    //   },
+    // ];
     this.store.select(fromReducer.getAllProducts).subscribe((products) => {
       this.route.paramMap.subscribe((params) => {
         let productId = params.get("id");
         this.product = _.find(products, { id: parseInt(productId) });
       });
     });
+  }
+  addToCart(product) {
+    let item = { ...product };
+    item.quantity = 1;
+    this.store.dispatch(new AddToCart([item]));
   }
 }

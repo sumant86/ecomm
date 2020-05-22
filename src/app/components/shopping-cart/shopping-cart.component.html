@@ -22,8 +22,15 @@
               <span class="subtitle">{{ product.name }}</span>
             </p>
           </div>
-          <div fxFlex="150px">
+          <div fxFlex="150px" fxLayout="column">
             <span>Price: ₹{{ product.price }}</span>
+            <button
+            mat-raised-button
+            class="details"
+            [routerLink]="['/home/details', product.id]"
+          >
+            Details
+          </button>
           </div>
           </div>
           <div fxFlex>
