@@ -3,12 +3,9 @@ import { ProductService } from "../../services/product.service";
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { Iproduct, IColumnDefinition } from "../../models/models";
-import { ProductActions, SetProducts } from "../../actions/product.action";
 import * as fromReducer from "./../../app.reducer";
-import { map } from "rxjs/operators";
 import * as _ from "lodash";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { AddToCart } from "../../actions/cart.action";
+import { CartActions } from "src/app/actions";
 
 @Component({
   selector: "ecomm-product-list",
@@ -20,15 +17,15 @@ export class ProductListComponent implements OnInit {
     private _productService: ProductService,
     private store: Store<fromReducer.AppState>
   ) {}
-  errorMessage: string;
-  products$: Observable<Iproduct[]>;
-  colDefbyKey: {};
-  colDef: IColumnDefinition[];
-  currency_prefix: string;
-  productList: any[];
-  filteredProductList: any[];
-  selection: any[];
-  searchableList: string[];
+  errorMessage: string | undefined;
+  products$: Observable<Iproduct[]> | undefined;
+  colDefbyKey: {} | undefined;
+  colDef: IColumnDefinition[] | undefined;
+  currency_prefix: string | undefined;
+  productList: any[] | undefined;
+  filteredProductList: any | undefined;
+  selection: any[] | undefined;
+  searchableList: string[] | undefined;
   ngOnInit() {
     this.currency_prefix = "$";
     this.colDef = [
@@ -97,7 +94,7 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
-  sortColumn(column) {
+  sortColumn(column: any) {
     //Finding Actual column
     _.forEach(this.colDef, (coldef) => {
       //Setting Icon for Column when clicked.
@@ -126,7 +123,7 @@ export class ProductListComponent implements OnInit {
       this.filteredProductList = this.productList;
     }
   }
-  addToSelectedList(event, selected) {
+  addToSelectedList(event:any, selected:any) {
     _.forEach(this.filteredProductList, (fpl) => {
       if (fpl["id"] === selected["id"]) {
         fpl.checked = true;
@@ -140,7 +137,7 @@ export class ProductListComponent implements OnInit {
       this.selection = [...this.selection, selected];
     }
   }
-  productSearch(form) {
+  productSearch(form: any) {
     if (form.value.searchFor) {
       this.filteredProductList = [];
       _.forEach(this.productList, (plist) => {
@@ -163,9 +160,9 @@ export class ProductListComponent implements OnInit {
       });
     }
   }
-  addToCart(product) {
+  addToCart(product:any) {
     let item = { ...product };
     item.quantity = 1;
-    this.store.dispatch(new AddToCart([item]));
+    this.store.dispatch(CartActions.AddToCart({payload:item}));
   }
 }

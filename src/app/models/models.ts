@@ -6,6 +6,7 @@ export interface Iproduct {
   available: boolean;
   image: string;
   quantity: number;
+  guid:string;
 }
 
 export interface IColumnDefinition {
@@ -27,4 +28,5 @@ export interface ICartProduct {
   available: boolean;
   image: string;
   quantity: number;
+  guid:string;
 }

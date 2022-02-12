@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { Store, select } from "@ngrx/store";
+import { LoaderState } from './app.model';
 import * as fromReducer from "./app.reducer";
 
 import { LoaderComponent } from "./components/loader/loader.component";

@@ -1,18 +1,5 @@
-import { Action } from "@ngrx/store";
-import { Iproduct } from "../models/models";
-export enum EProducts {
-  SetProducts = "[Products] SetProducts",
-  RemoveProducts = "[Products] RemoveProducts",
-}
+import { createAction, props } from '@ngrx/store';
+import { Iproduct } from '../models/models';
 
-export class SetProducts implements Action {
-  readonly type = EProducts.SetProducts;
-  constructor(public payload: Iproduct[]) {}
-}
-
-export class RemoveProducts implements Action {
-  readonly type = EProducts.RemoveProducts;
-  constructor(public payload: string[]) {}
-}
-
-export type ProductActions = SetProducts | RemoveProducts;
+export const SetProducts = createAction('[Products] SetProducts', props<{payload: Iproduct[]}>());
+export const RemoveProducts = createAction('[Products] RemoveProducts', props<{payload: string}>());

@@ -1,33 +1,37 @@
-import { Action, createFeatureSelector } from "@ngrx/store";
-import { EProducts, ProductActions } from "../actions/product.action";
+import { createReducer, on, Action } from '@ngrx/store';
+import { SetProducts, RemoveProducts } from "../actions/product.action";
 import { Iproduct } from "../models/models";
 import * as _ from "lodash";
+import { ProductState } from '../app.model';
 
-export interface ProductState {
-  products: Iproduct[];
-}
+
 
 export const initialState: ProductState = {
   products: [],
 };
 
-export function reducer(
-  state = initialState,
-  action: ProductActions
+const reducer = createReducer(
+  initialState,
+  on(SetProducts, (state, action) => (initProductStore(state, action.payload))),
+  on(RemoveProducts, (state, action) => (removeProductFromStore(state, action.payload as any)))
+);
+export function ProductReducer(
+  state: ProductState | undefined,
+  action: Action
 ): ProductState {
-  switch (action.type) {
-    case EProducts.SetProducts:
-      return { ...state, products: action.payload };
-    case EProducts.RemoveProducts:
-      return {
-        ...state,
-        products: state.products.filter(
-          (p) => !_.includes(action.payload, p["guid"])
-        ),
-      };
-    default:
-      return state;
-  }
+  return reducer(state, action);
 }
 
+export const getProductState = (state: ProductState) => state;
+
 export const selectProducts = (state: ProductState) => state.products;
+
+
+function initProductStore(state: ProductState, payload: Iproduct[]): ProductState {
+  return { ...state, products: payload }
+}
+function removeProductFromStore(state: ProductState, payload: Iproduct[]): ProductState {
+  return { ...state, products: state.products.filter(
+    (p:Iproduct) => !_.includes(payload, p.guid as any))
+  }
+}

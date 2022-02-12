@@ -1,22 +1,25 @@
-import { Action } from "@ngrx/store";
-import { ESpinnerActions, SpinnerActions } from "../actions/loader.action";
+import { ShowSpinner, HideSpinner } from "../actions/loader.action";
+import { createReducer, on, Action } from '@ngrx/store';
+import { LoaderState } from "../app.model";
 
-export interface State {
-  loading: boolean;
-}
-const INITIAL_STATE: State = {
+
+const initialState: LoaderState = {
   loading: false
 };
 
-export function LoadingReducer(state = INITIAL_STATE, action: SpinnerActions) {
-  switch (action.type) {
-    case ESpinnerActions.SHOW_SPINNER:
-      return { ...state, loading: true };
-    case ESpinnerActions.HIDE_SPINNER:
-      return { ...state, loading: false };
-    default:
-      return state;
-  }
+const reducer = createReducer(
+  initialState,
+  on(ShowSpinner, (state) => ({ ...state, loading: true })),
+  on(HideSpinner, (state) => ({ ...state, loading: false }))
+);
+
+export function LoadingReducer(
+  state: LoaderState | undefined,
+  action: Action
+): LoaderState {
+  return reducer(state, action);
 }
 
-export const getLoaderStatus = (state: State) => state.loading;
+export const getLoaderState = (state: LoaderState) => state;
+
+export const getLoader = (state: LoaderState) => state.loading;

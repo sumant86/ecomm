@@ -8,6 +8,7 @@ import { Store } from "@ngrx/store";
 import * as fromReducer from "./../../app.reducer";
 import * as _ from "lodash";
 import { AddToCart } from "../../actions/cart.action";
+import { CartActions } from "src/app/actions";
 
 @Component({
   selector: "ecomm-product-details",
@@ -16,7 +17,7 @@ import { AddToCart } from "../../actions/cart.action";
 })
 export class ProductDetailsComponent implements OnInit {
   // product$: Observable<Iproduct>;
-  product: Iproduct;
+  product: Iproduct | undefined;
   breadcrumbs: any;
   constructor(
     private _productService: ProductService,
@@ -39,13 +40,14 @@ export class ProductDetailsComponent implements OnInit {
     this.store.select(fromReducer.getAllProducts).subscribe((products) => {
       this.route.paramMap.subscribe((params) => {
         let productId = params.get("id");
-        this.product = _.find(products, { id: parseInt(productId) });
+        this.product = _.find(products, { id: productId }) as any;
       });
     });
   }
-  addToCart(product) {
+  addToCart(product:any) {
     let item = { ...product };
     item.quantity = 1;
-    this.store.dispatch(new AddToCart([item]));
+    this.store.dispatch(CartActions.AddToCart({payload:item}));
   }
 }
+

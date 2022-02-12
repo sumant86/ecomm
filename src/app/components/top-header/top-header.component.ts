@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as fromReducer from "./../../app.reducer";
-import { IAuth, SignIn, SignOut, IsSignIn } from "../../actions/auth.action";
-import { getIsSignIn } from "src/app/reducers/auth.reducer";
-import { Observable } from "rxjs";
+import { SignIn, SignOut, IsSignIn } from "../../actions/auth.action";
 import { ClearCart } from "../../actions/cart.action";
+import { IAuth } from "src/app/app.model";
+import { noUser } from "src/app/reducers/auth.reducer";
+import { AuthActions, CartActions, LoaderActions } from "src/app/actions";
 declare const gapi: any;
 @Component({
   selector: "ecomm-top-header",
@@ -14,11 +15,13 @@ declare const gapi: any;
 export class TopHeaderComponent implements OnInit {
   ClientID: string =
     "506151065942-q0nsbjofc5oae7gretum0ar2ov9s29ln.apps.googleusercontent.com";
+
   constructor(private store: Store<fromReducer.AppState>) {}
   auth2: any;
-  user: IAuth;
-  isSignIn: boolean;
+  user: IAuth | undefined;
+  isSignIn: boolean | undefined;
   cartSize: number = 0;
+  
   googleInit() {
     gapi.load("client:auth2", () => {
       gapi.auth2
@@ -29,7 +32,7 @@ export class TopHeaderComponent implements OnInit {
         .then(() => {
           this.auth2 = gapi.auth2.getAuthInstance();
           this.onAuthChange();
-          this.auth2.isSignedIn.listen((state) => this.onAuthChange());
+          this.auth2.isSignedIn.listen(() => this.onAuthChange());
         });
     });
   }
@@ -51,11 +54,11 @@ export class TopHeaderComponent implements OnInit {
         email: this.auth2.currentUser.get().getBasicProfile().getEmail(),
       };
     } else {
-      this.user = null;
+      this.user = noUser;
       this.isSignIn = false;
     }
-    this.store.dispatch(new SignIn(this.user));
-    this.store.dispatch(new IsSignIn(this.isSignIn));
+    this.store.dispatch(AuthActions.SignIn({payload:this.user as any}));
+    this.store.dispatch(AuthActions.IsSignIn({payload:this.isSignIn as any}));
   }
   onSignInClick() {
     this.auth2.signIn();
@@ -75,9 +78,9 @@ export class TopHeaderComponent implements OnInit {
     });
   }
   clearCart() {
-    this.store.dispatch(new ClearCart());
+    this.store.dispatch(CartActions.ClearCart());
   }
-  onValChange(value) {
+  onValChange(value: any) {
     console.log(value);
   }
   ngAfterViewInit() {

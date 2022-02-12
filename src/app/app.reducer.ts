@@ -10,44 +10,43 @@ import * as fromAuth from "./reducers/auth.reducer";
 import * as fromLoader from "./reducers/loader.reducer";
 import * as fromProducts from "./reducers/product.reducer";
 import * as fromCart from "./reducers/cart.reducer";
+import { LoaderState, AuthState, ProductState, CartState } from "./app.model";
 
 export interface AppState {
-  loader: fromLoader.State;
-  allProducts: fromProducts.ProductState;
-  auth: fromAuth.State;
-  productCart: fromCart.State;
+  loader: LoaderState;
+  allProducts: ProductState;
+  auth: AuthState;
+  productCart: CartState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   loader: fromLoader.LoadingReducer,
-  allProducts: fromProducts.reducer,
+  allProducts: fromProducts.ProductReducer,
   auth: fromAuth.AuthReducer,
-  productCart: fromCart.reducer,
+  productCart: fromCart.CartReducer,
 };
 
 export const metaReducers: MetaReducer<AppState>[] = !environment.production
   ? []
   : [];
 
-export const getAllProductState = createFeatureSelector<
-  fromProducts.ProductState
->("allProducts");
+export const getAllProductState = createFeatureSelector<ProductState>("allProducts");
 export const getAllProducts = createSelector(
   getAllProductState,
   fromProducts.selectProducts
 );
 
-export const getLoaderState = createFeatureSelector<fromLoader.State>("loader");
+export const getLoaderState = createFeatureSelector<LoaderState>("loader");
 export const getLoader = createSelector(
   getLoaderState,
-  fromLoader.getLoaderStatus
+  fromLoader.getLoader
 );
 
-export const getAuthState = createFeatureSelector<fromAuth.State>("auth");
-export const getUser = createSelector(getAuthState, fromAuth.getUser);
+export const getAuthState = createFeatureSelector<AuthState>("auth");
+export const getUser = createSelector(getAuthState, fromAuth.getUSer);
 export const getIsSignIn = createSelector(getAuthState, fromAuth.getIsSignIn);
 
-export const getCartState = createFeatureSelector<fromCart.State>(
+export const getCartState = createFeatureSelector<CartState>(
   "productCart"
 );
 export const getCart = createSelector(getCartState, fromCart.selectcart);

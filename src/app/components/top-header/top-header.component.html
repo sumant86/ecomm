@@ -38,9 +38,10 @@
     </button>
     <ng-container *ngIf="isSignIn"
       ><span class="salutation"
-        >Hello {{ user.givenname }}
+        >
+        <!-- Hello {{ user.givenname }} -->
         <a mat-flat-button [matMenuTriggerFor]="account">
-          <img [src]="user.img" height="30px" width="30px" />
+          <!-- <img [src]="user.img" height="30px" width="30px" /> -->
           <mat-icon>expand_more</mat-icon>
         </a>
         <mat-menu #account="matMenu">

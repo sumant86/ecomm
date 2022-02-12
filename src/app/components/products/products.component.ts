@@ -2,8 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { ProductService } from "../../services/product.service";
 import { Store } from "@ngrx/store";
 import * as fromReducer from "./../../app.reducer";
-import { ProductActions, SetProducts } from "../../actions/product.action";
-import { SetCart } from "../../actions/cart.action";
+import { AppError } from "src/app/interfaces/app-error";
+import { Iproduct } from "src/app/models/models";
+import { CartActions, ProductActions } from "src/app/actions";
 
 @Component({
   selector: "ecomm-products",
@@ -17,20 +18,15 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._productService.getProducts().subscribe(
-      (response) => {
-        this.store.dispatch(new SetProducts(response["products"]));
-      },
-      (error) => {
-        console.log("error");
+    this._productService.getProducts()
+    .subscribe(
+      (response: any) => {
+        this.store.dispatch(ProductActions.SetProducts({payload:response["products"]}));
       }
     );
     this._productService.getCart().subscribe(
-      (response) => {
-        this.store.dispatch(new SetCart(response["products"]));
-      },
-      (error) => {
-        console.log("error");
+      (response: any) => {
+        this.store.dispatch(CartActions.SetCart({payload:response["products"]}));
       }
     );
   }
